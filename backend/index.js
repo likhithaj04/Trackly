@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: 'https://trackly-alpha-silk.vercel.app/',
+    origin: 'https://trackly-alpha-silk.vercel.app',
     credentials: true
 }));
 
