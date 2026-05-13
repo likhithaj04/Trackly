@@ -106,7 +106,7 @@ export default function Joblist() {
                         <option value="interview">Interview</option>
                         <option value="interviewd">Interviewed</option>
                         <option value="assessment">Assessment</option>
-                                                <option value="selected">joboffer</option>
+                        <option value="joboffer">joboffer</option>
 
                         <option value="rejected">Rejected</option>
 

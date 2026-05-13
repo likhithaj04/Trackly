@@ -3,6 +3,9 @@ import Stats from './Stats'
 import api from '../../utils/api'
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { useJobs } from "../Auth/JobContext";
+import CalendarWidget from './CalenderWidget';
+import ReportPreview from './ReportPreview';
+import RecentJobs from './RecentJobs';
 
 
 export default function Dashboard() {
@@ -17,6 +20,18 @@ export default function Dashboard() {
     jobCount:         jobs.filter(j => j.status === 'joboffer').length,
   }), [jobs]);
 
+ const eventDates = useMemo(() => ({
+    applied:   jobs.filter(j => j.appliedAt).map(j => new Date(j.appliedAt).getDate()),
+    interview: jobs.filter(j => j.statusDate && j.status === 'interview')
+                   .map(j => new Date(j.statusDate).getDate()),
+  }), [jobs])
+
+   const recentJobs = useMemo(() =>
+    [...jobs]
+      .sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt))
+      .slice(0, 6)
+  , [jobs])
+  
   const pieData = useMemo(() => [
     { name: "Interview",   value: stats.interviewCount   },
     { name: "Interviewed", value: stats.interviewedCount },
@@ -34,6 +49,11 @@ const colors=["#106A52","#A7C1DC","#868CFD","#FFADC6","#df0901"]
       <h1>Dashboard
       </h1>
       <Stats stats={stats} pieData={pieData} colors={colors}/>
+      <div className="grid grid-cols-3 gap-4 mt-4">
+        <CalendarWidget eventDates={eventDates} />
+        <ReportPreview stats={stats} />
+        <RecentJobs jobs={recentJobs} />
+      </div>
     </div>
   )
 }

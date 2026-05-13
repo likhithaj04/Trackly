@@ -26,7 +26,6 @@ export default function Report() {
       .catch(err => console.log(err))
       .finally(() => setLoading(false));
   }, []);
-  console.log(reportCache);
   
 
   if (loading) {
