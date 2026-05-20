@@ -44,7 +44,7 @@ exports.login=async(req,res)=>{
       res.cookie('token',tokens,{
       httpOnly: true,
           secure: true, // true in production
-          sameSite: "strict",
+          sameSite: "none",
       })
  res.send("success")
 }
