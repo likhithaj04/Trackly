@@ -50,7 +50,21 @@ exports.login=async(req,res)=>{
 }
 
 exports.showUser=async(req,res)=>{
-    console.log("hit")
    const data=req.body;
    console.log(data)
 }
+
+exports.logout = (req, res) => {
+
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true, // true in production
+    sameSite: "lax",
+  });
+
+  return res.status(200).json({
+    success: true,
+    message: "Logged out successfully",
+  });
+
+};

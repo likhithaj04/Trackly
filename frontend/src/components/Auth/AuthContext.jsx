@@ -14,7 +14,7 @@ export default function AuthProvider({ children }) {
 
   const checkAuth = async () => {
     try {
-      const res = await api.get("/verify", {
+      const res = await api.get("/auth/verify", {
         withCredentials: true,
       });
 

@@ -11,7 +11,6 @@ exports.verifyEmail=async(req,res)=>{
     verifytoken:token,
    verifyexpiry:{$gt:Date.now()}
    })
-console.log(user);
 
      if (!user) {
     return res.status(400).send("Invalid or expired token");
@@ -23,12 +22,11 @@ console.log(user);
 await user.save();
 
 const tokens=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'})
-console.log(tokens);
 
 res.cookie('token',tokens,{
 httpOnly: true,
       httpOnly: true,
-    secure: false, // true in production
+    secure: true, // true in production
     sameSite: "strict",
 })
 

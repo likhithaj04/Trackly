@@ -7,6 +7,8 @@ import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./Auth/AuthContext";
 
+import { toast } from "react-toastify";
+
 export default function Login({ onToggle }) {
   const { login } = useAuth();
 
@@ -45,13 +47,13 @@ export default function Login({ onToggle }) {
       // cookie already stored automatically
       login(res.data.user);
 
-      alert("Logged in successfully");
+      toast.success("Logged in successfully");
 
       navigate("/app/addjob");
     } catch (err) {
       console.error(err);
 
-      alert(
+      toast.error(
         "Login failed: " +
           (err.response?.data?.message || "Server error")
       );
